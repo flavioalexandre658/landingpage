@@ -1,0 +1,15 @@
+.dropcontainer{
+    border: 1px solid  rgb(0, 0, 0,.125);
+    border-radius: 4px;
+    cursor: pointer;
+    transition: height 0.2s ease;
+}
+.dropcontainer p{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 15px 0px;
+    margin-bottom: 0px;
+    font-size: 13px;
+    color: rgb(0, 0, 0,.55);
+}

@@ -1,0 +1,124 @@
+.edit-content{
+    padding-right: 0px!important;
+    margin-right: 0px!important;
+    font-family: Poppins;
+    height: 655px;
+    overflow-y: scroll;
+    overflow-x: hidden;
+	position:fixed!important;
+}
+
+.edit-content svg{
+    margin-bottom: 5px;
+}
+.edit-content h5{
+    font-size: 18px;
+    font-family: Roboto;
+    color:  rgb(34, 34, 34)!important;
+}
+.edit-content h6{
+    font-size: 12px;
+    margin-bottom: 0px;
+}
+.edit-template-landing{
+    margin-left: 226px;
+    padding-left: 0px!important;
+}
+.edit-sessions{
+    padding-top: 4%;
+}
+.edit-sessions button{
+    padding: 3px 10px;
+    font-size: 12px;
+    background-color: #fff;
+    border-color: #007bff;
+    color: #007bff;
+}
+.edit-sessions button:hover{
+    background-color: #007bff;
+    border-color: #fff;
+    color: #fff;
+}
+
+.edit-sessions button:focus, .edit-sessions button.focus {
+    box-shadow: none;
+    background-color:#007bff!important;
+    border-color: #fff;
+}
+
+.edit-content .a-content{
+    border-style: solid none solid none;
+    border-color: rgb(0, 0, 0,.125)!important;
+    margin-top: 8px;
+    color: rgb(34, 34, 34)!important;
+    font-size: 15.5px;
+}
+
+.a-content a:focus, .a-content a.focus {
+    box-shadow: none;
+}
+.a-content a:not(:disabled):not(.disabled):active, .a-content a:not(:disabled):not(.disabled).active,
+.show > .a-content a.dropdown-toggle {
+  color: #fff!important;
+  background-color:rgb(34, 34, 34)!important;
+  border-color: none;
+}
+.a-content a:not(:disabled):not(.disabled):active:focus, .a-content a:not(:disabled):not(.disabled).active:focus,
+.show > .a-content a.dropdown-toggle:focus {
+  box-shadow: none;
+  border-color:rgb(34, 34, 34)!important;
+}
+.a-content a:hover{
+    background-color:rgb(34, 34, 34)!important;
+    border-color:  rgb(34, 34, 34)!important;
+    color: #fff!important;
+}
+.edit-content .form-group{
+    text-align: left!important;
+}
+.edit-sessions .form-group{
+    margin-bottom: 2px!important;
+}
+.edit-sessions label{
+    font-size: 12px;
+    font-weight: 500;
+    color:#6d7a82!important;
+    margin-bottom: 0px!important;
+    padding-top: 3%;
+}
+.edit-sessions .form-session{
+    margin-top: 2%;
+    color: rgb(34, 34, 34);
+    font-size:12px;
+    border-style: solid solid solid solid;
+    padding-bottom:10px;
+}
+.edit-sessions input{
+    font-size: 10px
+}
+.edit-sessions textarea{
+    font-size: 10px;
+    margin-top: 2%!important;
+}
+.edit-sessions .nav-link{
+    font-size: 10px;
+    padding-top: 0!important;
+}
+.edit-sessions input{
+    margin-top: 1.6%!important;
+}
+.success-not{
+    background-color: #007bff!important;
+}
+
+.excluir-tab a:hover{
+    color: #d60030;
+}
+.excluir-tab a{
+    margin-top: 15%!important;
+    padding-right: 0!important;
+    color: #d60030;
+}
+.a-content{
+    cursor: pointer;
+}

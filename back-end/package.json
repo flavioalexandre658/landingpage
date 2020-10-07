@@ -1,0 +1,30 @@
+{
+  "name": "landingpage",
+  "version": "1.0.0",
+  "description": "Criação de templates landing page editaveis de forma intuitiva",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "landing",
+    "page"
+  ],
+  "author": "Flávio Alexandre, CEO da Viqo",
+  "license": "ISC",
+  "dependencies": {
+    "aws-sdk": "^2.768.0",
+    "backbone": "^1.4.0",
+    "body-parser": "^1.19.0",
+    "cors": "^2.8.5",
+    "dotenv": "^8.2.0",
+    "express": "^4.17.1",
+    "mongoose": "^5.10.4",
+    "multer": "^1.4.2",
+    "multer-s3": "^2.9.0",
+    "mysql": "^2.18.1",
+    "nodemon": "^2.0.4",
+    "sha1": "^1.1.1",
+    "underscore": "^1.11.0"
+  }
+}

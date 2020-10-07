@@ -1,0 +1,29 @@
+.div-motivo {
+
+  -webkit-box-shadow: 0px 2px 5px 1px rgba(0, 0, 0, 0.42);
+  -moz-box-shadow: 0px 2px 5px 1px rgba(0, 0, 0, 0.42);
+  box-shadow: 0px 2px 5px 1px rgba(0, 0, 0, 0.42);
+  border-radius: 4px;
+  background-color: #fff !important;
+  color: rgb(129, 129, 129);
+  margin-top: 7%;
+}
+.div-motivo:hover {
+  -webkit-box-shadow: 0px 2px 5px 1px rgba(34,181,195,1);
+  -moz-box-shadow: 0px 2px 5px 1px rgba(34,181,195,1);
+  box-shadow: 0px 2px 5px 1px rgba(34,181,195,1);
+}
+.titulo-motivo {
+  font-family: "Poppins", sans-serif !important;
+  font-weight: 600;
+  color: rgba(34,181,195,1);
+  margin-top: 4%;
+}
+.div-motivo .card-body {
+  padding-top: 0px;
+}
+.icone-motivo {
+  margin-top: 5% !important;
+  margin-left: 2% !important;
+  color: rgba(34,181,195,1);
+}

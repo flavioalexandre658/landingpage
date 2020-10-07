@@ -1,0 +1,497 @@
+
+@media (min-width: 250px) and (max-width: 980px) {  
+    .n-container{
+        margin-left: 1%;
+        margin-right: 1%;
+        width: 100%;
+    }
+    #fundoMensagem{
+        height: 35%;
+        background-color: #212529;
+    }
+    #mensagem{
+        margin-top: 18%;
+        font-family: 'Roboto', sans-serif;
+        font-size: 15px;
+        background-color: #212529;
+    }
+
+    .card-m{
+        position: absolute;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        left: 0;
+        z-index: 1000;
+        display: none;
+        outline: 0;
+    }
+    .ofertas-main{
+        padding-top: 10px;
+    }
+    #titulo-ofertas h3{
+        font-size: 20px;
+    }
+    .img-banner{
+        height:400px;
+        object-fit: contain;
+    }
+}
+
+@media (min-width: 992px) { 
+    .n-container{
+        margin-left: 6%;
+        margin-right: 6%;
+        width: 100%;
+    } 
+    #fundoMensagem{
+        height: 25%;
+        background-color: #212529;
+    }
+    #mensagem{
+        margin-top: 65px;
+        font-family: 'Roboto', sans-serif;
+        font-size: 17px;
+        background-color: #212529;
+    }
+    .ofertas-main{
+        padding-top: 10px;
+    }
+    .card-m{
+        position: absolute;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        left: 0;
+        z-index: 1000;
+        display: none;
+        outline: 0;
+    }
+}
+#titulo-ofertas{
+    margin-top: 50px;
+    margin-bottom: -20px;
+    font-family: 'Oxygen', sans-serif;
+}
+.carousel-control-next:hover{
+    background-color: #000;
+    opacity: 25%;
+}
+.carousel-control-prev:hover{
+    background-color: #000;
+    opacity: 25%;
+}
+.carousel-indicators li {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+}
+.carousel{
+    margin-left: 0px;
+    margin-right: 0px;
+    width: 100%;
+}
+.card-img-top{
+    height: 200px;
+    object-fit: scale-down;
+}
+.custom-control{
+    font-size: 13px;
+}
+.card-body-m-b{
+    margin-bottom: -15px;
+}
+.sem-estoque{
+    margin-top:-10px;
+    color: rgb(238, 12, 12);
+}
+.barra-pesquisa{
+    outline: 0;
+}
+.contatos-footer{
+    font-family: 'Oxygen', sans-serif;
+    margin-left: 20px;
+}
+.titulo-merchan-footer{
+    margin-bottom: -20px;
+    font-family: 'Oxygen', sans-serif;
+}
+#views{
+    width: auto;
+}
+.hr-titulo{
+    border: 0;
+    height: 5px;
+    background-image: linear-gradient(to right, transparent, #CCC, transparent); 
+}
+#buttonCardLoja{
+    background-color:#71AF49;
+}
+#tituloCardProduto{
+    font-size: 12px;
+    font-family: Poppins;
+}
+#reviewCardProduto{
+    margin-top: -10px;
+    font-size: 10px;
+    font-family: Poppins;
+    margin-bottom: -6px;
+}
+.infoPrecoProduto{
+    margin-top: -15px;
+}
+.botaoLojaProduto{
+    margin-top: -20px;
+}
+.busca-container{
+    outline: 0;
+}
+.preco-card-hover{
+    color: #007bff;
+    margin-top:-10px;
+}
+.card-hover h6{
+    font-size: 10px;
+
+}
+.card-hover{
+    position: absolute;
+    opacity: 0.99;
+}
+.card-review{
+    position: relative;
+    top: -18px;
+    right: 0;
+    bottom: 0;
+    left: -15px;
+    z-index: 1010;
+}
+.card-conteudo{
+    width: 20rem;
+    padding-left: 20px;
+}
+
+.card-backdrop {
+    height: 100%;
+    width: 100%;
+    position: absolute;
+    z-index: 1000;
+    background-color: #e0e4f0;
+}
+
+.card-backdrop.fade {
+    display: none;
+    opacity: 0;
+}
+
+.card-backdrop.show {
+    display: block;
+    opacity: 0.5;
+}
+.review{
+    margin-top: -20px;
+}
+.modal-custom h6{
+    margin-top: 10px;
+}
+.modal-custom{
+    font-family:Poppins;
+}
+.modal-custom h6{
+    font-size:12px;
+    margin-bottom: -3px;
+}
+.m-t{
+    margin-top: 70px;
+}
+.form-m-t-p{
+    margin-top: 50px;
+}
+.form-m-t{
+    margin-top: 110px;
+}
+.row-m-t{
+    margin-top : 20px
+}
+
+#dropdownNavButton{
+    outline: none;
+}
+
+.breadcrumb{
+    margin-top: 70px;
+    background-color: #fff;
+}
+
+.breadcrumb li,a,a:hover,a:link,a:visited{
+    display: block;
+    text-decoration: none;
+    color: #007bff;
+    transition: all 0.3s;
+}
+
+.titulo-painel{
+    margin-top: 50px;
+    font-family: 'Josefin Sans';
+    margin-left: 4px;
+}
+
+.b-content{
+    background-color: #e0e4f0;
+    width:auto;
+}
+.titulo-busca-main{
+    padding-top: 50px;
+    
+    font-family: 'Oxygen', sans-serif;
+}
+.subtitulo-busca-main{
+    margin-top: 10px;
+    font-family: 'Josefin Sans';
+}
+.descricao{
+    margin-left: 7%;
+}
+.titulo-descricao{
+    margin-left: 7%;
+    margin-top: 30px;
+    font-family: 'Josefin Sans';
+}
+.content-produtos{
+    margin-left: 4%;
+}
+.descricao p{
+    font-family: 'Josefin Sans';
+    text-align: justify;
+}
+.titulo-sugestao h6{
+    margin-top: 50px;
+    font-size: 12px;
+}
+.titulo-busca{
+    padding-top: 40px;
+    font-family: 'Oxygen', sans-serif;
+    font-size: 8px;
+}
+#titulo-promos{
+    margin-top: 20px;
+    font-family: 'Roboto', sans-serif;
+    background-color: #212529;
+    color: #fff;
+}
+#titulo-promos h3{
+    font-size: 18px;
+}
+
+.preco{
+    color: rgb(5, 85, 233);
+}
+.avista{
+    color: rgb(5, 85, 233);
+    font-size: 15px;
+}
+.card a{
+    color: rgb(5, 85, 233);
+}
+.card a:hover{
+    color:rgb(255, 255, 255);
+}
+.card-text{
+    font-size: 12px;
+}
+.material-icons.md-18 { 
+    font-size: 18px;
+}
+.material-icons.md-24 { font-size: 24px; }
+.material-icons.md-36 { font-size: 36px; }
+.material-icons.md-48 { font-size: 48px; height: 75px; width: 75px; }
+.material-icons.white-color { color: #fff; }
+.material-icons.black-color { color:rgb(43, 41, 41) }
+.heading #celular{
+    margin-left: 15px;
+}
+
+.heading #notebook{
+    margin-left: 30px;
+}
+.heading #tv{
+    margin-left: 5px;
+}
+.heading #consoles{
+    margin-left: 30px;
+}
+
+.heading{
+    width: auto;
+    height: 450px;
+}
+.heading #tipos{
+    margin-top:5px;
+    font-family: 'Comfortaa', cursive;
+}
+#tipos a{
+    color: #000;
+    font-size: 17px;
+}
+.heading h1{
+    text-align: center;
+}
+.content{
+    width:auto;
+}
+
+
+
+.navbar-text{
+    text-decoration: none;
+    display: block;
+    color:#fff;
+}
+
+.navbar-text a:hover{
+    display: block;
+    text-decoration: none;
+    transition: all 0.3s;
+}
+
+body{
+    background-color:#fff;
+}
+
+.navbar-default{
+    background:#fff;
+    border:0;
+    font-family: Poppins;
+}
+.navbar-brand{
+    font-family:Poppins;
+    font-size: 20px;
+    height:0%;
+}
+
+nav ul{
+    list-style:none;
+}
+
+ul li{
+    font:16px Arial, sans-serif;
+}
+
+#navBarSite a:link{
+    font-family:Poppins;
+    padding: 0px 10px;
+    color:#000;
+    text-decoration: none;
+    transition: all 0.3s;
+}
+
+
+h1,h2,h3,h4,h5,h6{
+    font-family:Poppins;
+}
+
+p{
+    font-family:Roboto;
+}
+
+#servicos .servicos-right{
+    margin-top:60px;
+}
+#vendas .servicos-right{
+    margin-top:60px;
+}
+#vendas h1{
+    font-size:42px;
+    margin-bottom:20px;
+}
+#servicos h1{
+        font-size:50px;
+        margin-bottom:20px;
+}
+
+#anuncio1{
+    background:#cac9c9;
+    padding: 50px 0 30px 0;
+    text-align:center;
+    margin-top:40px;
+}
+
+#anuncio1 p{
+    font-size:32px;
+    font-family: 'Josefin Sans';
+    color:#000;
+}
+
+#anuncio1 p.customer{
+    font-size:20px;
+    color:#666;
+}
+
+#contato{
+    color:#333;
+    font-style: italic;
+}
+
+.navbar-brand{
+    font-size:14px;
+	font-family:Poppins
+}
+.atendimento{
+	font-size:14px;
+	font-family:Poppins;
+}
+.email{
+	font-size:14px;
+    font-family: 'Oxygen', sans-serif;
+    color:rgb(237, 4, 37);
+    margin-left: 35px;
+}
+
+.telefone{
+	font-size:14px;
+    font-family: 'Oxygen', sans-serif;
+	text-decoration:none;
+	color:#fff;
+}
+
+footer{
+	margin-top: 60px;
+	font-size:13px;
+	border-top:#333 7px solid;
+	background-color: #000;
+    color:#666;
+    padding:25px;
+}
+.galeria{
+    position:relative;
+    padding:20px;
+	margin-left:100px;
+	margin-right:135px;
+}
+.miniatura img{
+    border:#333 1px solid;
+    margin:0 5px 5px 0;
+}
+.miniatura:hover{
+    background-color: transparent;
+}
+.miniatura span{
+    position: absolute;
+    background-color: lightblue;
+    padding: 5px;
+    left:-1000px;
+    border:1px dashed gray;
+    visibility: hidden;
+    color: #000;
+    text-decoration: none; 
+}
+.miniatura span img{
+    border-width: 0;
+    padding: 2px;
+}
+.miniatura:hover span{
+    visibility: visible;
+    top:0;
+    left:230px;
+    z-index:50px;
+}
