@@ -1,7 +1,6 @@
 import React from "react";
 import { Form, FormGroup, Label, Input, Button } from "reactstrap";
 import Dropzone from "react-dropzone";
-import { uniqueId } from "lodash";
 import "./formproduto.css";
 
 import api from "../../../services/api";
@@ -14,7 +13,6 @@ const FormProduto = (props) => {
     e.preventDefault();
     const customId = "custom-id";
     let produto = props.produto;
-
     api.put("/editProduto", produto).then(function (res) {
       if (res.data.status) {
         toast.success(res.data.message, {
@@ -40,35 +38,57 @@ const FormProduto = (props) => {
         });
       }
     });
-    if (props.files[0]) {
-      props.files.forEach((file) => {
-        const data = new FormData();
-        data.append("file", file.file);
-        data.append("id", file.idImagem);
-        api.put("/editFiles", data, {
-          headers: {
-            "Content-Type": `multipart/form-data; boundary=${data._boundary}`,
-          },
+        
+    props.files.forEach((file) => {
+      const data = new FormData();
+      data.append("file", file.file);
+      data.append("id", file.idImagem);
+      api.post("/addFiles", data, {
+        headers: {
+          "Content-Type": `multipart/form-data; boundary=${data._boundary}`,
+        },
+      }).then(function (res) {
+      if(!res.data.status){
+        props.files.forEach((file) => {
+          const data = new FormData();
+          data.append("file", file.file);
+          data.append("id", file.idImagem);
+          api.put("/editFiles", data, {
+            headers: {
+              "Content-Type": `multipart/form-data; boundary=${data._boundary}`,
+            },
+          })
         });
+      }
       });
-    }
+    });
+    
   };
   /*const addNewImage = async () => {
         setSaving(true)
         const data = new FormData();
         data.append('card', cardFile);
     }*/
-  const handleUpload = (files) => {
-    const uploadedFiles = files.map((file) => ({
-      file,
-      idImagem: uniqueId(),
-      name: file.name,
-      uploaded: false,
-      error: false,
-      url: URL.createObjectURL(file),
-    }));
-    props.setFiles(uploadedFiles);
-  };
+
+    const handleUpload = (file) => {
+      const uploadedFiles = {
+        file: file[0],
+        idImagem: "produto-0",
+        name: file[0].name,
+        chave: file[0].name,
+        size: file[0].size,
+        url: URL.createObjectURL(file[0]),
+      };
+
+      props.files.forEach((file, index) => {
+        if (file.idImagem === "produto-0") {
+          props.files.splice(index, 1);
+        }
+      });
+
+      props.setFiles([...props.files, uploadedFiles]);
+      props.setProduto({ ...props.produto, idImagem: uploadedFiles.idImagem })
+    };
   return (
     <Form className="text-center" onSubmit={addProduto}>
       <FormGroup>
@@ -109,7 +129,7 @@ const FormProduto = (props) => {
       </FormGroup>
       <FormGroup>
         <Label for="imagemProduto">Imagem</Label>
-        <Dropzone onDrop={()=>handleUpload(1)} multiple={false}>
+        <Dropzone onDrop={handleUpload} multiple={false}>
           {({ getRootProps, getInputProps }) => (
             <section>
               <div {...getRootProps()} className="dropcontainer">
@@ -119,12 +139,6 @@ const FormProduto = (props) => {
             </section>
           )}
         </Dropzone>
-        {/*<Input
-          onChange={(e) => props.setImageProduct(e.target.value)}
-          type="file"
-          name="imageproduct"
-          id="imageProduct"
-        />*/}
       </FormGroup>
       <Button type="submit">Salvar</Button>
     </Form>

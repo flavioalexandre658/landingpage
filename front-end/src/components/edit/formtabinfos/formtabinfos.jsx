@@ -15,7 +15,6 @@ import {
   Col,
 } from "reactstrap";
 import Dropzone from "react-dropzone";
-import _uniqueId from 'lodash/uniqueId';
 
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
@@ -30,8 +29,8 @@ const FormTabInfos = (props) => {
         if (!res.data.status) {
           api.put("/editInformacoes", infos).then(function (res) {
             if (res.data.status) {
-              if (props.files.uploaded) {
-                props.files.forEach((file) => {
+              props.files.forEach((file) => {
+                if (file.file !== undefined) {
                   const data = new FormData();
                   data.append("file", file.file);
                   data.append("id", file.idImagem);
@@ -40,8 +39,9 @@ const FormTabInfos = (props) => {
                       "Content-Type": `multipart/form-data; boundary=${data._boundary}`,
                     },
                   });
-                });
-              }
+                }
+              });
+
               toast.success(res.data.message, {
                 position: "top-right",
                 autoClose: 3000,
@@ -66,8 +66,8 @@ const FormTabInfos = (props) => {
             }
           });
         } else {
-          if (props.files.uploaded) {
-            props.files.forEach((file) => {
+          props.files.forEach((file) => {
+            if (file.file !== undefined) {
               const data = new FormData();
               data.append("file", file.file);
               data.append("id", file.idImagem);
@@ -76,8 +76,9 @@ const FormTabInfos = (props) => {
                   "Content-Type": `multipart/form-data; boundary=${data._boundary}`,
                 },
               });
-            });
-          }
+            }
+          });
+
           toast.success(res.data.message, {
             position: "top-right",
             autoClose: 3000,
@@ -103,6 +104,7 @@ const FormTabInfos = (props) => {
         imagem:
           "https://www.blog.twed.com.br/wp-content/uploads/2018/06/7-Dados-informa%C3%A7%C3%B5es-e-indicadores.png",
         animacao: "fadeInRight",
+        idImagem: "",
       },
     ]);
   };
@@ -113,6 +115,7 @@ const FormTabInfos = (props) => {
     );
     api.delete("/removerInformacao/" + info.id).then(function (res) {
       if (res.data.status) {
+        api.delete("/removerFile/" + info.idImagem)
         toast.warning(res.data.message, {
           position: "top-right",
           autoClose: 3000,
@@ -135,17 +138,39 @@ const FormTabInfos = (props) => {
       }
     });
   };
+  const handleUpload = (file,indice) => {
+    let uploadedFiles = {};
+    props.informacoes.forEach((infos,index) => {
+    uploadedFiles = {
+      file: file[0],
+      idImagem: "info-" + indice,
+      name: file[0].name,
+      chave: file[0].name,
+      size: file[0].size,
+      url: URL.createObjectURL(file[0]),
+    };
+  })
 
-  const handleUpload = (files) => {
-    const uploadedFiles = files.map((file) => ({
-      file,
-      idImagem: _uniqueId(),
-      name: file.name,
-      uploaded: true,
-      error: false,
-      url: URL.createObjectURL(file),
-    }));
-    props.setFiles(uploadedFiles);
+    props.files.forEach((file, index) => {
+      if (file.idImagem === uploadedFiles.idImagem) {
+        props.files.splice(index, 1);
+      }
+    });
+
+    props.setFiles([...props.files, uploadedFiles]);
+    props.informacoes.forEach((info, index) => {
+      if (info.idImagem === "") {
+        handleInfos(index, uploadedFiles.idImagem);
+      }
+    });
+  };
+
+  const handleInfos = (index, id) => {
+    const newInfos = [...props.informacoes];
+    let newInfo = { ...newInfos[index] };
+    newInfo.idImagem = id;
+    newInfos[index] = newInfo;
+    props.setInformacoes(newInfos);
   };
   const FormTab = props.informacoes.map((infos, index) => (
     <FormGroup key={index}>
@@ -160,20 +185,11 @@ const FormTabInfos = (props) => {
           </NavLink>
         </Col>
       </Row>
-      <Dropzone onDrop={handleUpload} multiple={false}>
+      <Dropzone onDrop={(file) => handleUpload(file, index)} multiple={false}>
         {({ getRootProps, getInputProps }) => (
           <section>
             <div {...getRootProps()} className="dropcontainer">
-              <input
-                {...getInputProps()}
-                onChange={() => {
-                  const newInfos = [...props.informacoes];
-                  let newInfo = { ...newInfos[index] };
-                  newInfo.idImagem = props.files.idImagem;
-                  newInfos[index] = newInfo;
-                  props.setInformacoes(newInfos);
-                }}
-              />
+              <input {...getInputProps()} />
               <p>Inserir Imagem</p>
             </div>
           </section>

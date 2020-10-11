@@ -1,12 +1,8 @@
 import React from "react";
-import {
-    Row,
-    Col,
-    Container
-  } from "reactstrap";
-  import {BsEnvelope} from 'react-icons/bs'
-  import {FaWhatsapp} from 'react-icons/fa'
-  import {RiStore2Line} from 'react-icons/ri'
+import { Row, Col, Container } from "reactstrap";
+import { BsEnvelope } from "react-icons/bs";
+import { FaWhatsapp } from "react-icons/fa";
+import { RiStore2Line } from "react-icons/ri";
 const Rodape = (props) => {
   return (
     <Container
@@ -17,16 +13,23 @@ const Rodape = (props) => {
         <Col xs="12" md="4">
           <Row className="justify-content-center">
             <Col xs="7" md="6">
-              <img
-                className="w-100 mb-2"
-                src={require("./logo-shop.png")}
-                alt="COMPARIE"
-              />
+              {props.files.map(
+                (file, index) =>
+                  file.idImagem === props.rodape.idImagem && (
+                    <img
+                      key={index}
+                      className="img-product"
+                      src={file.url}
+                      alt=""
+                    />
+                  )
+              )}
             </Col>
             <Col xs="10" md="12" className="sobre-nos">
               <p className="text-justifys">
                 {
-                  props.rodape.sobrenos /*Somos uma loja de origem bastante humilde e prezamos muito
+                  props.rodape
+                    .sobrenos /*Somos uma loja de origem bastante humilde e prezamos muito
               por transparência e sinceridade com nossos clientes. Nosso
               maior objetivo é fornecer produtos de qualidade. Buscamos
               sempre novidades internacionais para manter nosso portfólio
@@ -45,23 +48,24 @@ const Rodape = (props) => {
               <Row className="justify-content-center">
                 <Col xs="10" md="7 pt-2">
                   <a href={"mailto:" + props.rodape.email}>
-                    <BsEnvelope/>
+                    <BsEnvelope />
                     <span className="pl-2">{props.rodape.email}</span>
                   </a>
                 </Col>
                 <Col xs="10" md="7 pt-2">
-                <RiStore2Line/>
-                <span className="pl-2">{props.rodape.endereco}</span>
+                  <RiStore2Line />
+                  <span className="pl-2">{props.rodape.endereco}</span>
                 </Col>
                 <Col xs="10" md="7 pt-2 mb-4">
                   <a
                     href={
-                      "https://api.whatsapp.com/send?phone=" + props.rodape.telefone
+                      "https://api.whatsapp.com/send?phone=" +
+                      props.rodape.telefone
                     }
                     target="_blank"
                     rel="noopener noreferrer"
                   >
-                    <FaWhatsapp/>
+                    <FaWhatsapp />
                     <span className="pl-2">{props.rodape.telefone}</span>
                   </a>
                 </Col>

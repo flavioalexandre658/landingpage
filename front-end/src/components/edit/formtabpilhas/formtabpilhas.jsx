@@ -12,7 +12,7 @@ import {
   Col,
   Button,
 } from "reactstrap";
-
+import Dropzone from "react-dropzone";
 import api from "../../../services/api";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
@@ -27,6 +27,18 @@ const FormTabPilhas = (props) => {
         if (!res.data.status) {
           api.put("/editPilhas", pilha).then(function (res) {
             if (res.data.status) {
+              props.files.forEach((file) => {
+                if (file.file !== undefined) {
+                  const data = new FormData();
+                  data.append("file", file.file);
+                  data.append("id", file.idImagem);
+                  api.put("/editFiles", data, {
+                    headers: {
+                      "Content-Type": `multipart/form-data; boundary=${data._boundary}`,
+                    },
+                  });
+                }
+              });
               toast.success(res.data.message, {
                 position: "top-right",
                 autoClose: 3000,
@@ -51,6 +63,19 @@ const FormTabPilhas = (props) => {
             }
           });
         } else {
+          props.files.forEach((file) => {
+            if (file.file !== undefined) {
+              const data = new FormData();
+              data.append("file", file.file);
+              data.append("id", file.idImagem);
+              api.post("/addFiles", data, {
+                headers: {
+                  "Content-Type": `multipart/form-data; boundary=${data._boundary}`,
+                },
+              });
+            }
+          });
+
           toast.success(res.data.message, {
             position: "top-right",
             autoClose: 3000,
@@ -74,6 +99,7 @@ const FormTabPilhas = (props) => {
         titulo: "Titulo",
         conteudo: "Aqui você coloca informações relevantes",
         animacao: "fadeInRight",
+        idImagem: "",
       },
     ]);
   };
@@ -82,6 +108,7 @@ const FormTabPilhas = (props) => {
     props.setPilhas(props.pilhas.filter((item) => item.id !== pilha.id));
     api.delete("/removerPilha/" + pilha.id).then(function (res) {
       if (res.data.status) {
+        api.delete("/removerFile/" + pilha.idImagem);
         toast.warning(res.data.message, {
           position: "top-right",
           autoClose: 3000,
@@ -104,6 +131,39 @@ const FormTabPilhas = (props) => {
       }
     });
   };
+
+  const handleUpload = (file, indice) => {
+    const uploadedFiles = {
+      file: file[0],
+      idImagem: "pilha-" + indice,
+      name: file[0].name,
+      chave: file[0].name,
+      size: file[0].size,
+      url: URL.createObjectURL(file[0]),
+    };
+
+    props.files.forEach((file, index) => {
+      if (file.idImagem === uploadedFiles.idImagem) {
+        props.files.splice(index, 1);
+      }
+    });
+
+    props.setFiles([...props.files, uploadedFiles]);
+    props.pilhas.forEach((pilha, index) => {
+      if (pilha.idImagem === "") {
+        handlePilhas(index, uploadedFiles.idImagem);
+      }
+    });
+  };
+
+  const handlePilhas = (index, id) => {
+    const newPilhas = [...props.pilhas];
+    let newPilha = { ...newPilhas[index] };
+    newPilha.idImagem = id;
+    newPilhas[index] = newPilha;
+    props.setPilhas(newPilhas);
+  };
+
   const FormTab = props.pilhas.map((pilhas, index) => (
     <FormGroup key={index}>
       <Row className="align-items-center">
@@ -117,14 +177,24 @@ const FormTabPilhas = (props) => {
           </NavLink>
         </Col>
       </Row>
+      <Dropzone onDrop={(file) => handleUpload(file, index)} multiple={false}>
+        {({ getRootProps, getInputProps }) => (
+          <section>
+            <div {...getRootProps()} className="dropcontainer">
+              <input {...getInputProps()} />
+              <p>Inserir Imagem</p>
+            </div>
+          </section>
+        )}
+      </Dropzone>
       <Input
         onChange={(e) => {
           let { value } = e.target;
-          const newInfos = [...props.pilhas];
-          let newInfo = { ...newInfos[index] };
-          newInfo.titulo = value;
-          newInfos[index] = newInfo;
-          props.setPilhas(newInfos);
+          const newPilhas = [...props.pilhas];
+          let newPilha = { ...newPilhas[index] };
+          newPilha.titulo = value;
+          newPilhas[index] = newPilha;
+          props.setPilhas(newPilhas);
         }}
         type="text"
         name="texttitle"
@@ -133,28 +203,15 @@ const FormTabPilhas = (props) => {
       <Input
         onChange={(e) => {
           let { value } = e.target;
-          const newInfos = [...props.pilhas];
-          let newInfo = { ...newInfos[index] };
-          newInfo.conteudo = value;
-          newInfos[index] = newInfo;
-          props.setPilhas(newInfos);
+          const newPilhas = [...props.pilhas];
+          let newPilha = { ...newPilhas[index] };
+          newPilha.conteudo = value;
+          newPilhas[index] = newPilha;
+          props.setPilhas(newPilhas);
         }}
         type="textarea"
         name="texttab"
         placeholder="Texto Pilha"
-      />
-      <Input
-        onChange={(e) => {
-          let { value } = e.target;
-          const newInfos = [...props.pilhas];
-          let newInfo = { ...newInfos[index] };
-          newInfo.imagem = value;
-          newInfos[index] = newInfo;
-          props.setPilhas(newInfos);
-        }}
-        type="file"
-        name="imagecoment3"
-        id="imagecoment3"
       />
       <hr />
     </FormGroup>

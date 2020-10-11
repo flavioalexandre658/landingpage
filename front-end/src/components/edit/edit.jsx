@@ -15,122 +15,115 @@ import FormAvaliacoes from "./formavaliacoes/formavaliacoes";
 import FormPrecos from "./formprecos/formprecos";
 import "./edit.css";
 import FormRodape from "./formrodape/formrodape";
-import api from '../../services/api';
-import {TiEdit, TiThMenuOutline} from 'react-icons/ti';
+import api from "../../services/api";
+import { TiEdit, TiThMenuOutline } from "react-icons/ti";
 
 const Edit = (props) => {
+  /* VÁRIAVEIS EDITAVEIS */
+  let [files, setFiles] = useState([]);
 
-/* VÁRIAVEIS EDITAVEIS */
-let [files, setFiles] = useState([]);
+  let [produto, setProduto] = useState({});
 
-let [produto, setProduto] = useState({});
+  let [rodape, setRodape] = useState({});
 
-let [rodape, setRodape] = useState({})
+  let [informacoes, setInformacoes] = useState([]);
 
-let [informacoes, setInformacoes] = useState([]);
+  let [motivos, setMotivos] = useState([]);
 
-let [motivos, setMotivos] = useState([]);
+  let [pilhas, setPilhas] = useState([]);
 
-let [pilhas, setPilhas] = useState([]);
+  let [avaliacoes, setAvaliacoes] = useState([]);
 
-let [avaliacoes, setAvaliacoes] = useState([]);
+  let [precos, setPrecos] = useState([]);
 
-let [precos, setPrecos] = useState([]);
+  useEffect(() => {
+    api
+      .get("/getFiles")
+      .then(function (res) {
+        if (props.files === undefined) setFiles(res.data);
+      })
 
-useEffect(() => {
-  api.get('/getFiles')
-  .then(function(res){
+      .catch(function (error) {
+        if (error) console.log(error);
+      });
+  }, [props.files]);
 
-    if(props.files === undefined)
-      setFiles(res.data)
-    })
- 
-  .catch(function(error){
-      if(error)  console.log(error)
-  })
-}, [props.files])
+  useEffect(() => {
+    api
+      .get("/getProduto")
+      .then(function (res) {
+        if (props.produto === undefined) setProduto(res.data[0]);
+      })
+      .catch(function (error) {
+        if (error) console.log(error);
+      });
+  }, [props.produto]);
 
-useEffect(() => {
-  api.get('/getProduto')
-  .then(function(res){
-    if(props.produto === undefined)
-      setProduto(res.data[0])
-  })
-  .catch(function(error){
-      if(error)  console.log(error)
-  })
-}, [props.produto])
+  useEffect(() => {
+    api
+      .get("/getInformacoes")
+      .then(function (res) {
+        if (props.informacoes === undefined) setInformacoes(res.data);
+      })
+      .catch(function (error) {
+        if (error) console.log(error);
+      });
+  }, [props.informacoes]);
 
-useEffect(() => {
-  api.get('/getInformacoes')
-  .then(function(res){
-    if(props.informacoes === undefined)
-      setInformacoes(res.data)
-  })
-  .catch(function(error){
-      if(error)  console.log(error)
-  })
-}, [props.informacoes])
+  useEffect(() => {
+    api
+      .get("/getMotivos")
+      .then(function (res) {
+        if (props.motivos === undefined) setMotivos(res.data);
+      })
+      .catch(function (error) {
+        if (error) console.log(error);
+      });
+  }, [props.motivos]);
 
-useEffect(() => {
-  api.get('/getMotivos')
-  .then(function(res){
-    
-    if(props.motivos === undefined)
-      setMotivos(res.data)
-  })
-  .catch(function(error){
-      if(error)  console.log(error)
-  })
-}, [props.motivos])
+  useEffect(() => {
+    api
+      .get("/getPilhas")
+      .then(function (res) {
+        if (props.pilhas === undefined) setPilhas(res.data);
+      })
+      .catch(function (error) {
+        if (error) console.log(error);
+      });
+  }, [props.pilhas]);
 
-useEffect(() => {
-  api.get('/getPilhas')
-  .then(function(res){
-    
-    if(props.pilhas === undefined)
-      setPilhas(res.data)
-  })
-  .catch(function(error){
-      if(error)  console.log(error)
-  })
-}, [props.pilhas])
+  useEffect(() => {
+    api
+      .get("/getAvaliacoes")
+      .then(function (res) {
+        if (props.avaliacoes === undefined) setAvaliacoes(res.data);
+      })
+      .catch(function (error) {
+        if (error) console.log(error);
+      });
+  }, [props.avaliacoes]);
 
-useEffect(() => {
-  api.get('/getAvaliacoes')
-  .then(function(res){
-    
-    if(props.avaliacoes === undefined)
-      setAvaliacoes(res.data)
-  })
-  .catch(function(error){
-      if(error)  console.log(error)
-  })
-}, [props.avaliacoes])
+  useEffect(() => {
+    api
+      .get("/getPrecos")
+      .then(function (res) {
+        if (props.precos === undefined) setPrecos(res.data);
+      })
+      .catch(function (error) {
+        if (error) console.log(error);
+      });
+  }, [props.precos]);
 
-useEffect(() => {
-  api.get('/getPrecos')
-  .then(function(res){
-    
-    if(props.precos === undefined)
-      setPrecos(res.data)
-  })
-  .catch(function(error){
-      if(error)  console.log(error)
-  })
-}, [props.precos])
-
-useEffect(() => {
-  api.get('/getRodape')
-  .then(function(res){
-
-    if(props.rodape === undefined)
-      setRodape(res.data[0])
-  })
-  .catch(function(error){
-      if(error)  console.log(error)
-  })
-}, [props.rodape])
+  useEffect(() => {
+    api
+      .get("/getRodape")
+      .then(function (res) {
+        if (props.rodape === undefined) setRodape(res.data[0]);
+      })
+      .catch(function (error) {
+        if (error) console.log(error);
+      });
+  }, [props.rodape]);
 
   return (
     <Row>
@@ -139,7 +132,7 @@ useEffect(() => {
           <Col xs="12" md="12" className="pt-4">
             <Row>
               <Col xs="3" md="2 pr-0 text-right">
-                <TiEdit/>
+                <TiEdit />
               </Col>
               <Col xs="9" md="9 pl-0 text-center">
                 <h5>Edição de Landing</h5>
@@ -160,7 +153,12 @@ useEffect(() => {
               </ListGroupItem>
               <UncontrolledCollapse toggler="#um">
                 <Col xs="12" md="12" className="edit-sessions">
-                  <FormProduto produto={produto} setProduto={setProduto} files={files} setFiles={setFiles}/>
+                  <FormProduto
+                    produto={produto}
+                    setProduto={setProduto}
+                    files={files}
+                    setFiles={setFiles}
+                  />
                 </Col>
               </UncontrolledCollapse>
               <ListGroupItem tag="a" id="dois" className="a-content" action>
@@ -178,10 +176,16 @@ useEffect(() => {
                   <FormTabInfos
                     informacoes={informacoes}
                     setInformacoes={setInformacoes}
-                    files={files} setFiles={setFiles}
+                    files={files}
+                    setFiles={setFiles}
                   />
                   <FormTabMotivos motivos={motivos} setMotivos={setMotivos} />
-                  <FormTabPilhas pilhas={pilhas} setPilhas={setPilhas} />
+                  <FormTabPilhas
+                    pilhas={pilhas}
+                    setPilhas={setPilhas}
+                    files={files}
+                    setFiles={setFiles}
+                  />
                 </Col>
               </UncontrolledCollapse>
               <ListGroupItem tag="a" id="tres" className="a-content" action>
@@ -190,7 +194,7 @@ useEffect(() => {
                     <h6>Sessão Avaliações </h6>
                   </Col>
                   <Col xs="3" md="3">
-                      <TiThMenuOutline />
+                    <TiThMenuOutline />
                   </Col>
                 </Row>
               </ListGroupItem>
@@ -199,6 +203,8 @@ useEffect(() => {
                   <FormAvaliacoes
                     avaliacoes={avaliacoes}
                     setAvaliacoes={setAvaliacoes}
+                    files={files}
+                    setFiles={setFiles}
                   />
                 </Col>
               </UncontrolledCollapse>
@@ -214,7 +220,12 @@ useEffect(() => {
               </ListGroupItem>
               <UncontrolledCollapse toggler="#quatro">
                 <Col xs="12" md="12" className="edit-sessions">
-                  <FormPrecos precos={precos} setPrecos={setPrecos} />
+                  <FormPrecos
+                    precos={precos}
+                    setPrecos={setPrecos}
+                    files={files}
+                    setFiles={setFiles}
+                  />
                 </Col>
               </UncontrolledCollapse>
               <ListGroupItem tag="a" id="cinco" className="a-content" action>
@@ -229,7 +240,12 @@ useEffect(() => {
               </ListGroupItem>
               <UncontrolledCollapse toggler="#cinco">
                 <Col xs="12" md="12" className="edit-sessions">
-                  <FormRodape rodape={rodape} setRodape={setRodape} />
+                  <FormRodape
+                    rodape={rodape}
+                    setRodape={setRodape}
+                    files={files}
+                    setFiles={setFiles}
+                  />
                 </Col>
               </UncontrolledCollapse>
             </ListGroup>

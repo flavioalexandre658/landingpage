@@ -53,7 +53,12 @@ const Precos = (props) => {
               </Col>
             </Row>
             <Row>
-              <img className="w-100 img-preco" src={preco.imagem} alt="" />
+            {props.files.map(
+                  (file, index) =>
+                    file.idImagem === preco.idImagem && (
+                      <img key={index} width="100%" src={file.url} alt="" />
+                    )
+                )}
             </Row>
             <Row className="text-middle align-items-center price-content">
               <Col xs="12" md="12 pr-0">

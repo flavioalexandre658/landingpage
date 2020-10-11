@@ -17,9 +17,9 @@ router.get('/getRodape', (req, res) => { /// Retorna do banco todos os status ca
 
 router.post('/addRodape', function(req, res) { 
     rodape = new dbfun.Rodape();
-    rodape.query("INSERT INTO `landingpage`.`rodape`(`id`, `logomarca`, `sobrenos`, `email`, `endereco`, `telefone`)VALUES('"
+    rodape.query("INSERT INTO `landingpage`.`rodape`(`id`, `idImagem`, `sobrenos`, `email`, `endereco`, `telefone`)VALUES('"
         + req.body.id + "','"
-        + req.body.logomarca + "','"
+        + req.body.idImagem + "','"
         + req.body.sobrenos + "','"
         + req.body.email + "','"
         + req.body.endereco + "','"
@@ -42,8 +42,8 @@ router.post('/addRodape', function(req, res) {
 
   router.put('/editRodape', function(req, res) { 
     rodape = new dbfun.Rodape();
-    rodape.query("UPDATE `landingpage`.`rodape` SET `logomarca` = '"
-    + req.body.logomarca + "', `sobrenos` = '"
+    rodape.query("UPDATE `landingpage`.`rodape` SET `idImagem` = '"
+    + req.body.idImagem + "', `sobrenos` = '"
     + req.body.sobrenos + "', `email` = '"
     + req.body.email + "', `endereco` = '"
     + req.body.endereco + "', `telefone` = '"

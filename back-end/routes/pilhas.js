@@ -17,11 +17,11 @@ router.get('/getPilhas', (req, res) => { /// Retorna do banco todos os status ca
 
 router.post('/addPilhas', function(req, res) { 
     pilhas = new dbfun.Pilhas();
-    pilhas.query("INSERT INTO `landingpage`.`pilhas`(`id`, `titulo`, `conteudo`, `imagem`, `animacao`)VALUES('"
+    pilhas.query("INSERT INTO `landingpage`.`pilhas`(`id`, `titulo`, `conteudo`, `idImagem`, `animacao`)VALUES('"
         + req.body.id + "','"
         + req.body.titulo + "','"
         + req.body.conteudo + "','"
-        + req.body.imagem + "','"
+        + req.body.idImagem + "','"
         + req.body.animacao +"');",
       function(err) {
         if(err){
@@ -43,8 +43,8 @@ router.post('/addPilhas', function(req, res) {
     pilhas.query("UPDATE `landingpage`.`pilhas` SET `titulo` = '"
     + req.body.titulo + "', `conteudo` = '"
     + req.body.conteudo + "', `animacao` = '"
-    + req.body.animacao + "', `imagem` = '"
-    + req.body.imagem
+    + req.body.animacao + "', `idImagem` = '"
+    + req.body.idImagem
       +"'WHERE `id` = '"+req.body.id+"';",
       function(err) { // Caso ocorra um erro
         if(err)

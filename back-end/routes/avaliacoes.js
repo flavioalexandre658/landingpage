@@ -17,11 +17,11 @@ router.get('/getAvaliacoes', (req, res) => { /// Retorna do banco todos os statu
 
 router.post('/addAvaliacoes', function(req, res) { 
     avaliacoes = new dbfun.Avaliacoes();
-    avaliacoes.query("INSERT INTO `landingpage`.`avaliacoes`(`id`, `titulo`, `cidade`, `imagem`)VALUES('"
+    avaliacoes.query("INSERT INTO `landingpage`.`avaliacoes`(`id`, `titulo`, `cidade`, `idImagem`)VALUES('"
         + req.body.id + "','"
         + req.body.titulo + "','"
         + req.body.cidade + "','"
-        + req.body.imagem +"');",
+        + req.body.idImagem +"');",
       function(err) {
         if(err){
           res.json({
@@ -41,8 +41,8 @@ router.post('/addAvaliacoes', function(req, res) {
     avaliacoes = new dbfun.Avaliacoes();
     avaliacoes.query("UPDATE `landingpage`.`avaliacoes` SET `titulo` = '"
     + req.body.titulo + "', `cidade` = '"
-    + req.body.cidade + "', `imagem` = '"
-    + req.body.imagem
+    + req.body.cidade + "', `idImagem` = '"
+    + req.body.idImagem
       +"'WHERE `id` = '"+req.body.id+"';",
       function(err) { // Caso ocorra um erro
         if(err)

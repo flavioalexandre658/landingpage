@@ -17,12 +17,12 @@ router.get('/getPrecos', (req, res) => { /// Retorna do banco todos os status ca
 
 router.post('/addPrecos', function(req, res) { 
     precos = new dbfun.Precos();
-    precos.query("INSERT INTO `landingpage`.`precos`(`id`, `preco`, `parcela`, `unidade`, `imagem`)VALUES('"
+    precos.query("INSERT INTO `landingpage`.`precos`(`id`, `preco`, `parcela`, `unidade`, `idImagem`)VALUES('"
         + req.body.id + "','"
         + req.body.preco + "','"
         + req.body.parcela + "','"
         + req.body.unidade + "','"
-        + req.body.imagem +"');",
+        + req.body.idImagem +"');",
       function(err) {
         if(err){
           res.json({
@@ -43,8 +43,8 @@ router.post('/addPrecos', function(req, res) {
     precos.query("UPDATE `landingpage`.`precos` SET `preco` = '"
     + req.body.preco + "', `parcela` = '"
     + req.body.parcela + "', `unidade` = '"
-    + req.body.unidade + "', `imagem` = '"
-    + req.body.imagem
+    + req.body.unidade + "', `idImagem` = '"
+    + req.body.idImagem
       +"'WHERE `id` = '"+req.body.id+"';",
       function(err) { // Caso ocorra um erro
         if(err)

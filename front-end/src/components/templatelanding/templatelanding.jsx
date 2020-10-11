@@ -146,7 +146,7 @@ const TemplateLandingPage = (props) => {
       <hr className="tab-separator" />
       <TabMotivos motivos={props.motivos || motivos} />
       <Avisooriginal />
-      <TabPilhas pilhas={props.pilhas || pilhas} />
+      <TabPilhas pilhas={props.pilhas || pilhas} files={ props.files || files } />
       <div className="bg-page">
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 280">
           <path
@@ -155,7 +155,7 @@ const TemplateLandingPage = (props) => {
             d="M0,32L0,72L160,72L160,160L320,160L320,96L480,96L480,128L640,128L640,96L800,96L800,128L960,128L960,148L1120,148L1120,100L1280,100L1280,160L1440,160L1440,0L1280,0L1280,0L1120,0L1120,0L960,0L960,0L800,0L800,0L640,0L640,0L480,0L480,0L520,0L520,0L160,0L160,0L0,0L0,0Z"
           ></path>
         </svg>
-        <Avaliacoes avaliacoes={props.avaliacoes || avaliacoes} />
+        <Avaliacoes avaliacoes={props.avaliacoes || avaliacoes} files={ props.files || files } />
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 180">
           <path
             fill="#fff"
@@ -164,11 +164,11 @@ const TemplateLandingPage = (props) => {
           ></path>
         </svg>
       </div>
-      <Precos precos={props.precos || precos} />
+      <Precos precos={props.precos || precos} files={ props.files || files } />
       <Garantias />
       <Faq />
       <div className="bg-page">
-        <Rodape rodape={props.rodape || rodape} />
+        <Rodape rodape={props.rodape || rodape}  files={ props.files || files } />
       </div>
     </div>
   );

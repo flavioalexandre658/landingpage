@@ -74,7 +74,7 @@ const Produto = (props) => {
             animationIn="fadeInLeft"
             animationInDuration={1000}
           >
-            {props.files.map((item,index) => <img key={index} className="img-product" src={item.idImagem === props.produto.idImagem ? item.url: item.url } alt="" />)}
+            {props.files.map((file,index) => file.idImagem === props.produto.idImagem && <img key={index} className="img-product" src={ file.url } alt="" />)}
           </AnimatedOnScroll>
         </Col>
         <Col xs="12" md="12" id="button-mobile">

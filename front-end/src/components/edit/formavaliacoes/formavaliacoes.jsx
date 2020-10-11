@@ -13,21 +13,33 @@ import {
   Button
 } from "reactstrap";
 import "./formavaliacoes.css";
-
+import Dropzone from "react-dropzone";
 import api from "../../../services/api";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 toast.configure();
 
 const FormAvaliacoes = (props) => {
+  const customId = "custom-id";
   const addAvaliacoes = (e) => {
     e.preventDefault();
-    const customId = "custom-id";
     props.avaliacoes.map((avaliacao) =>
       api.post("/addAvaliacoes", avaliacao).then(function (res) {
         if (!res.data.status) {
           api.put("/editAvaliacoes", avaliacao).then(function (res) {
             if (res.data.status) {
+              props.files.forEach((file) => {
+                if (file.file !== undefined) {
+                  const data = new FormData();
+                  data.append("file", file.file);
+                  data.append("id", file.idImagem);
+                  api.put("/editFiles", data, {
+                    headers: {
+                      "Content-Type": `multipart/form-data; boundary=${data._boundary}`,
+                    },
+                  });
+                }
+              });
               toast.success(res.data.message, {
                 position: "top-right",
                 autoClose: 3000,
@@ -52,6 +64,18 @@ const FormAvaliacoes = (props) => {
             }
           });
         } else {
+          props.files.forEach((file) => {
+            if (file.file !== undefined) {
+              const data = new FormData();
+              data.append("file", file.file);
+              data.append("id", file.idImagem);
+              api.post("/addFiles", data, {
+                headers: {
+                  "Content-Type": `multipart/form-data; boundary=${data._boundary}`,
+                },
+              });
+            }
+          });
           toast.success(res.data.message, {
             position: "top-right",
             autoClose: 3000,
@@ -72,10 +96,9 @@ const FormAvaliacoes = (props) => {
       ...props.avaliacoes,
       {
         id: props.avaliacoes.length + 1,
-        imagem:
-          "https://images.assets-landingi.com/OT8yTv3i709JEeEb/Screenshot_26.png",
         titulo: "Paulo Augusto",
         cidade: "Salvador - BA",
+        idImagem: ""
       },
     ]);
   };
@@ -84,6 +107,7 @@ const FormAvaliacoes = (props) => {
     props.setAvaliacoes(props.avaliacoes.filter((item) => item.id !== avaliacao.id));
     api.delete("/removerAvaliacao/" + avaliacao.id).then(function (res) {
       if (res.data.status) {
+        api.delete("/removerFile/" + avaliacao.idImagem)
         toast.warning(res.data.message, {
           position: "top-right",
           autoClose: 3000,
@@ -92,6 +116,17 @@ const FormAvaliacoes = (props) => {
           pauseOnHover: true,
           draggable: true,
           progress: undefined,
+          toastId: customId,
+        });
+        toast.warning(res.data.message, {
+          position: "top-right",
+          autoClose: 3000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          toastId: customId,
         });
       } else {
         toast.error("Erro ao remover.", {
@@ -106,7 +141,38 @@ const FormAvaliacoes = (props) => {
       }
     });
   };
+  
+  const handleUpload = (file, indice) => {
+    const uploadedFiles = {
+      file: file[0],
+      idImagem: "avaliacao-" + indice,
+      name: file[0].name,
+      chave: file[0].name,
+      size: file[0].size,
+      url: URL.createObjectURL(file[0]),
+    };
 
+    props.files.forEach((file, index) => {
+      if (file.idImagem === uploadedFiles.idImagem) {
+        props.files.splice(index, 1);
+      }
+    });
+
+    props.setFiles([...props.files, uploadedFiles]);
+    props.avaliacoes.forEach((avaliacao, index) => {
+      if (avaliacao.idImagem === "") {
+        handleAvaliacoes(index, uploadedFiles.idImagem);
+      }
+    });
+  };
+
+  const handleAvaliacoes = (index, id) => {
+    const newAvaliacoes = [...props.avaliacoes];
+    let newAvaliacao = { ...newAvaliacoes[index] };
+    newAvaliacao.idImagem = id;
+    newAvaliacoes[index] = newAvaliacao;
+    props.setAvaliacoes(newAvaliacoes);
+  };
   const FormAva = props.avaliacoes.map((avaliacao, index) => (
     <FormGroup key={index}>
       <Row className="align-items-center">
@@ -120,7 +186,18 @@ const FormAvaliacoes = (props) => {
           </NavLink>
         </Col>
       </Row>
-      <Input type="file" name={index} />
+      <Label>Imagem</Label>
+      <Dropzone onDrop={(file) => handleUpload(file, index)} multiple={false}>
+        {({ getRootProps, getInputProps }) => (
+          <section>
+            <div {...getRootProps()} className="dropcontainer">
+              <input {...getInputProps()} />
+              <p>Inserir Imagem</p>
+            </div>
+          </section>
+        )}
+      </Dropzone>
+      <Label>Nome da pessoa</Label>
       <Input
         onChange={(e) => {
           let { value } = e.target;
@@ -134,6 +211,7 @@ const FormAvaliacoes = (props) => {
         name={index}
         placeholder="Titulo"
       />
+      <Label>Cidade</Label>
       <Input
         onChange={(e) => {
           let { value } = e.target;
