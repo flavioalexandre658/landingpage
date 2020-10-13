@@ -7,6 +7,15 @@ var dbfun = require('../models/db');
 //Criptografia da senha
 var sha1 = require('sha1');
 
+router.get('/getFile/:id', function(req, res) { /// Retorna do banco todos os clientes jurídicos cadastrados
+  files = new dbfun.Files();
+  files.find('all', {where: 'idImagem =\'' + req.params.id + '\'',
+  }, function(err, rows, fields) {
+    if(err) throw err;
+    res.json(rows);
+  });
+});
+
 router.get('/getFiles',(req, res) => { /// Retorna do banco todos os status cadastrados
     files = new dbfun.Files();
     files.query("SELECT * FROM files;",

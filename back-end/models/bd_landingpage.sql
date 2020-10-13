@@ -1,5 +1,12 @@
 USE landingpage;
 
+create table usuario(
+    id int auto_increment,
+    nome varchar(255) not null,
+    email varchar(100) not null,
+    senha varchar(100) not null,
+    constraint id primary key (id)
+);
 create table files(
     idImagem varchar(100) not null,
     name varchar(255) not null,
@@ -18,7 +25,6 @@ create table produto(
     headline varchar(255) not null,
     idImagem varchar(100) not null,
     constraint id primary key (id)
-
 
 );
 insert into `landingpage`.`produto` values 

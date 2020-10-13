@@ -17,7 +17,7 @@ const FormProduto = (props) => {
       if (res.data.status) {
         toast.success(res.data.message, {
           position: "top-right",
-          autoClose: 3000,
+          autoClose: 1300,
           hideProgressBar: false,
           closeOnClick: true,
           pauseOnHover: true,
@@ -28,7 +28,7 @@ const FormProduto = (props) => {
       } else {
         toast.error(res.data.message, {
           position: "top-right",
-          autoClose: 3000,
+          autoClose: 1300,
           hideProgressBar: false,
           closeOnClick: true,
           pauseOnHover: true,

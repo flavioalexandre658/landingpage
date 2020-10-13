@@ -41,7 +41,7 @@ const FormPrecos = (props) => {
               });
               toast.success(res.data.message, {
                 position: "top-right",
-                autoClose: 3000,
+                autoClose: 1300,
                 hideProgressBar: false,
                 closeOnClick: true,
                 pauseOnHover: true,
@@ -52,7 +52,7 @@ const FormPrecos = (props) => {
             } else {
               toast.error(res.data.message, {
                 position: "top-right",
-                autoClose: 3000,
+                autoClose: 1300,
                 hideProgressBar: false,
                 closeOnClick: true,
                 pauseOnHover: true,
@@ -77,7 +77,7 @@ const FormPrecos = (props) => {
           });
           toast.success(res.data.message, {
             position: "top-right",
-            autoClose: 3000,
+            autoClose: 1300,
             hideProgressBar: false,
             closeOnClick: true,
             pauseOnHover: true,
@@ -98,34 +98,44 @@ const FormPrecos = (props) => {
         preco: 50,
         parcela: 12,
         unidade: 1,
-        idImagem: ""
+        idImagem: "",
       },
     ]);
   };
 
   const removePreco = (preco) => {
     props.setPrecos(props.precos.filter((item) => item.id !== preco.id));
-    api.delete("/removerPreco/" + preco.id).then(function (res) {
-      if (res.data.status) {
-        api.delete("/removerFile/" + preco.idImagem)
-        toast.warning(res.data.message, {
-          position: "top-right",
-          autoClose: 3000,
-          hideProgressBar: false,
-          closeOnClick: true,
-          pauseOnHover: true,
-          draggable: true,
-          progress: undefined,
-        });
-      } else {
-        toast.error("Erro ao remover.", {
-          position: "top-right",
-          autoClose: 3000,
-          hideProgressBar: false,
-          closeOnClick: true,
-          pauseOnHover: true,
-          draggable: true,
-          progress: undefined,
+    api.get("/getPreco/" + preco.id).then(function (res) {
+      if (res.data.length > 0) {
+        api.delete("/removerPreco/" + preco.id).then(function (res) {
+          if (res.data.status) {
+            if (preco.idImagem !== "") {
+              api.get("/getFile/" + preco.idImagem).then(function (res) {
+                if (res.data.length > 0) {
+                  api.delete("/removerFile/" + preco.idImagem);
+                }
+              });
+            }
+            toast.warning(res.data.message, {
+              position: "top-right",
+              autoClose: 1300,
+              hideProgressBar: false,
+              closeOnClick: true,
+              pauseOnHover: true,
+              draggable: true,
+              progress: undefined,
+            });
+          } else {
+            toast.error("Erro ao remover.", {
+              position: "top-right",
+              autoClose: 1300,
+              hideProgressBar: false,
+              closeOnClick: true,
+              pauseOnHover: true,
+              draggable: true,
+              progress: undefined,
+            });
+          }
         });
       }
     });
@@ -190,7 +200,7 @@ const FormPrecos = (props) => {
         placeholder="Unidade"
       />
       <Label for="imagem">Imagem</Label>
-            <Dropzone onDrop={(file) => handleUpload(file, index)} multiple={false}>
+      <Dropzone onDrop={(file) => handleUpload(file, index)} multiple={false}>
         {({ getRootProps, getInputProps }) => (
           <section>
             <div {...getRootProps()} className="dropcontainer">

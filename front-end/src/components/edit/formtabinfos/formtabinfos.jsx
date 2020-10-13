@@ -44,7 +44,7 @@ const FormTabInfos = (props) => {
 
               toast.success(res.data.message, {
                 position: "top-right",
-                autoClose: 3000,
+                autoClose: 1300,
                 hideProgressBar: false,
                 closeOnClick: true,
                 pauseOnHover: true,
@@ -55,7 +55,7 @@ const FormTabInfos = (props) => {
             } else {
               toast.error(res.data.message, {
                 position: "top-right",
-                autoClose: 3000,
+                autoClose: 1300,
                 hideProgressBar: false,
                 closeOnClick: true,
                 pauseOnHover: true,
@@ -81,7 +81,7 @@ const FormTabInfos = (props) => {
 
           toast.success(res.data.message, {
             position: "top-right",
-            autoClose: 3000,
+            autoClose: 1300,
             hideProgressBar: false,
             closeOnClick: true,
             pauseOnHover: true,
@@ -113,43 +113,53 @@ const FormTabInfos = (props) => {
     props.setInformacoes(
       props.informacoes.filter((item) => item.id !== info.id)
     );
-    api.delete("/removerInformacao/" + info.id).then(function (res) {
-      if (res.data.status) {
-        api.delete("/removerFile/" + info.idImagem)
-        toast.warning(res.data.message, {
-          position: "top-right",
-          autoClose: 3000,
-          hideProgressBar: false,
-          closeOnClick: true,
-          pauseOnHover: true,
-          draggable: true,
-          progress: undefined,
-        });
-      } else {
-        toast.error("Erro ao remover.", {
-          position: "top-right",
-          autoClose: 3000,
-          hideProgressBar: false,
-          closeOnClick: true,
-          pauseOnHover: true,
-          draggable: true,
-          progress: undefined,
+    api.get("/getInformacao/" + info.id).then(function (res) {
+      if (res.data.length > 0) {
+        api.delete("/removerInformacao/" + info.id).then(function (res) {
+          if (res.data.status) {
+            if (info.idImagem !== "") {
+              api.get("/getFile/" + info.idImagem).then(function (res) {
+                if (res.data.length > 0) {
+                  api.delete("/removerFile/" + info.idImagem);
+                }
+              });
+            }
+            toast.warning(res.data.message, {
+              position: "top-right",
+              autoClose: 1300,
+              hideProgressBar: false,
+              closeOnClick: true,
+              pauseOnHover: true,
+              draggable: true,
+              progress: undefined,
+            });
+          } else {
+            toast.error("Erro ao remover.", {
+              position: "top-right",
+              autoClose: 1300,
+              hideProgressBar: false,
+              closeOnClick: true,
+              pauseOnHover: true,
+              draggable: true,
+              progress: undefined,
+            });
+          }
         });
       }
     });
   };
-  const handleUpload = (file,indice) => {
+  const handleUpload = (file, indice) => {
     let uploadedFiles = {};
-    props.informacoes.forEach((infos,index) => {
-    uploadedFiles = {
-      file: file[0],
-      idImagem: "info-" + indice,
-      name: file[0].name,
-      chave: file[0].name,
-      size: file[0].size,
-      url: URL.createObjectURL(file[0]),
-    };
-  })
+    props.informacoes.forEach((infos, index) => {
+      uploadedFiles = {
+        file: file[0],
+        idImagem: "info-" + indice,
+        name: file[0].name,
+        chave: file[0].name,
+        size: file[0].size,
+        url: URL.createObjectURL(file[0]),
+      };
+    });
 
     props.files.forEach((file, index) => {
       if (file.idImagem === uploadedFiles.idImagem) {

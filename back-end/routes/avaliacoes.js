@@ -6,6 +6,15 @@ var dbfun = require('../models/db');
 //Criptografia da senha
 var sha1 = require('sha1');
 
+router.get('/getAvaliacao/:id', function(req, res) {
+  avaliacoes = new dbfun.Avaliacoes();
+  avaliacoes.find('all', {where:"id = " + req.params.id,
+  }, function(err, rows, fields) {
+    if(err) throw err;
+    res.json(rows);
+  });
+});
+
 router.get('/getAvaliacoes', (req, res) => { /// Retorna do banco todos os status cadastrados
     avaliacoes = new dbfun.Avaliacoes();
     avaliacoes.query("SELECT * FROM avaliacoes;",

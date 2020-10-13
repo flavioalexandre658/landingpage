@@ -6,6 +6,15 @@ var dbfun = require('../models/db');
 //Criptografia da senha
 var sha1 = require('sha1');
 
+router.get('/getPreco/:id', function(req, res) {
+  precos = new dbfun.Precos();
+  precos.find('all', {where:"id = " + req.params.id,
+  }, function(err, rows, fields) {
+    if(err) throw err;
+    res.json(rows);
+  });
+});
+
 router.get('/getPrecos', (req, res) => { /// Retorna do banco todos os status cadastrados
     precos = new dbfun.Precos();
     precos.query("SELECT * FROM precos;",

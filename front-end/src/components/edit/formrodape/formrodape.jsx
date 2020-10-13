@@ -16,7 +16,7 @@ const FormRodape = (props) => {
           if (res.data.status) {
             toast.success(res.data.message, {
               position: "top-right",
-              autoClose: 3000,
+              autoClose: 1300,
               hideProgressBar: false,
               closeOnClick: true,
               pauseOnHover: true,
@@ -27,7 +27,7 @@ const FormRodape = (props) => {
           } else {
             toast.error(res.data.message, {
               position: "top-right",
-              autoClose: 3000,
+              autoClose: 1300,
               hideProgressBar: false,
               closeOnClick: true,
               pauseOnHover: true,

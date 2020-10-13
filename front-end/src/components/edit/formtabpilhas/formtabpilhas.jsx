@@ -41,7 +41,7 @@ const FormTabPilhas = (props) => {
               });
               toast.success(res.data.message, {
                 position: "top-right",
-                autoClose: 3000,
+                autoClose: 1300,
                 hideProgressBar: false,
                 closeOnClick: true,
                 pauseOnHover: true,
@@ -52,7 +52,7 @@ const FormTabPilhas = (props) => {
             } else {
               toast.error(res.data.message, {
                 position: "top-right",
-                autoClose: 3000,
+                autoClose: 1300,
                 hideProgressBar: false,
                 closeOnClick: true,
                 pauseOnHover: true,
@@ -78,7 +78,7 @@ const FormTabPilhas = (props) => {
 
           toast.success(res.data.message, {
             position: "top-right",
-            autoClose: 3000,
+            autoClose: 1300,
             hideProgressBar: false,
             closeOnClick: true,
             pauseOnHover: true,
@@ -106,27 +106,38 @@ const FormTabPilhas = (props) => {
 
   const removePilha = (pilha) => {
     props.setPilhas(props.pilhas.filter((item) => item.id !== pilha.id));
-    api.delete("/removerPilha/" + pilha.id).then(function (res) {
-      if (res.data.status) {
-        api.delete("/removerFile/" + pilha.idImagem);
-        toast.warning(res.data.message, {
-          position: "top-right",
-          autoClose: 3000,
-          hideProgressBar: false,
-          closeOnClick: true,
-          pauseOnHover: true,
-          draggable: true,
-          progress: undefined,
-        });
-      } else {
-        toast.error("Erro ao remover.", {
-          position: "top-right",
-          autoClose: 3000,
-          hideProgressBar: false,
-          closeOnClick: true,
-          pauseOnHover: true,
-          draggable: true,
-          progress: undefined,
+
+    api.get("/getPilha/" + pilha.id).then(function (res) {
+      if (res.data.length > 0) {
+        api.delete("/removerPilha/" + pilha.id).then(function (res) {
+          if (res.data.status) {
+            if (pilha.idImagem !== "") {
+              api.get("/getFile/" + pilha.idImagem).then(function (res) {
+                if (res.data.length > 0) {
+                  api.delete("/removerFile/" + pilha.idImagem);
+                }
+              });
+            }
+            toast.warning(res.data.message, {
+              position: "top-right",
+              autoClose: 1300,
+              hideProgressBar: false,
+              closeOnClick: true,
+              pauseOnHover: true,
+              draggable: true,
+              progress: undefined,
+            });
+          } else {
+            toast.error("Erro ao remover.", {
+              position: "top-right",
+              autoClose: 1300,
+              hideProgressBar: false,
+              closeOnClick: true,
+              pauseOnHover: true,
+              draggable: true,
+              progress: undefined,
+            });
+          }
         });
       }
     });

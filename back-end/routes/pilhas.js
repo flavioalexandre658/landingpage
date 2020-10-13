@@ -6,6 +6,15 @@ var dbfun = require('../models/db');
 //Criptografia da senha
 var sha1 = require('sha1');
 
+router.get('/getPilha/:id', function(req, res) {
+  pilhas = new dbfun.Pilhas();
+  pilhas.find('all', {where:"id = " + req.params.id,
+  }, function(err, rows, fields) {
+    if(err) throw err;
+    res.json(rows);
+  });
+});
+
 router.get('/getPilhas', (req, res) => { /// Retorna do banco todos os status cadastrados
     pilhas = new dbfun.Pilhas();
     pilhas.query("SELECT * FROM pilhas;",

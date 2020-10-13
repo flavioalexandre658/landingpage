@@ -9,5 +9,5 @@ router.use('/', require('./avaliacoes'));
 router.use('/', require('./precos'));
 router.use('/', require('./rodape'));
 router.use('/', require('./files'));
-
+router.use('/', require('./usuario'));
 module.exports = router;

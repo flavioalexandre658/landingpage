@@ -10,7 +10,7 @@ import {
   UncontrolledCollapse,
   Row,
   Col,
-  Button
+  Button,
 } from "reactstrap";
 import "./formavaliacoes.css";
 import Dropzone from "react-dropzone";
@@ -42,7 +42,7 @@ const FormAvaliacoes = (props) => {
               });
               toast.success(res.data.message, {
                 position: "top-right",
-                autoClose: 3000,
+                autoClose: 1300,
                 hideProgressBar: false,
                 closeOnClick: true,
                 pauseOnHover: true,
@@ -53,7 +53,7 @@ const FormAvaliacoes = (props) => {
             } else {
               toast.error(res.data.message, {
                 position: "top-right",
-                autoClose: 3000,
+                autoClose: 1300,
                 hideProgressBar: false,
                 closeOnClick: true,
                 pauseOnHover: true,
@@ -78,7 +78,7 @@ const FormAvaliacoes = (props) => {
           });
           toast.success(res.data.message, {
             position: "top-right",
-            autoClose: 3000,
+            autoClose: 1300,
             hideProgressBar: false,
             closeOnClick: true,
             pauseOnHover: true,
@@ -98,50 +98,51 @@ const FormAvaliacoes = (props) => {
         id: props.avaliacoes.length + 1,
         titulo: "Paulo Augusto",
         cidade: "Salvador - BA",
-        idImagem: ""
+        idImagem: "",
       },
     ]);
   };
 
   const removeAvaliacao = (avaliacao) => {
-    props.setAvaliacoes(props.avaliacoes.filter((item) => item.id !== avaliacao.id));
-    api.delete("/removerAvaliacao/" + avaliacao.id).then(function (res) {
-      if (res.data.status) {
-        api.delete("/removerFile/" + avaliacao.idImagem)
-        toast.warning(res.data.message, {
-          position: "top-right",
-          autoClose: 3000,
-          hideProgressBar: false,
-          closeOnClick: true,
-          pauseOnHover: true,
-          draggable: true,
-          progress: undefined,
-          toastId: customId,
-        });
-        toast.warning(res.data.message, {
-          position: "top-right",
-          autoClose: 3000,
-          hideProgressBar: false,
-          closeOnClick: true,
-          pauseOnHover: true,
-          draggable: true,
-          progress: undefined,
-          toastId: customId,
-        });
-      } else {
-        toast.error("Erro ao remover.", {
-          position: "top-right",
-          autoClose: 3000,
-          hideProgressBar: false,
-          closeOnClick: true,
-          pauseOnHover: true,
-          draggable: true,
-          progress: undefined,
+    props.setAvaliacoes(
+      props.avaliacoes.filter((item) => item.id !== avaliacao.id)
+    );
+    api.get("/getAvaliacao/" + avaliacao.id).then(function (res) {
+      if (res.data.length > 0) {
+        api.delete("/removerAvaliacao/" + avaliacao.id).then(function (res) {
+          if (res.data.status) {
+            if (avaliacao.idImagem !== "") {
+              api.get("/getFile/" + avaliacao.idImagem).then(function (res) {
+                if (res.data.length > 0) {
+                  api.delete("/removerFile/" + avaliacao.idImagem);
+                }
+              });
+            }
+            toast.warning(res.data.message, {
+              position: "top-right",
+              autoClose: 1300,
+              hideProgressBar: false,
+              closeOnClick: true,
+              pauseOnHover: true,
+              draggable: true,
+              progress: undefined,
+            });
+          } else {
+            toast.error("Erro ao remover.", {
+              position: "top-right",
+              autoClose: 1300,
+              hideProgressBar: false,
+              closeOnClick: true,
+              pauseOnHover: true,
+              draggable: true,
+              progress: undefined,
+            });
+          }
         });
       }
     });
   };
-  
+
   const handleUpload = (file, indice) => {
     const uploadedFiles = {
       file: file[0],

@@ -29,5 +29,8 @@ module.exports = {
     }),
     Files: connection.extend({
       tableName: "files"
+    }),
+    Usuario: connection.extend({
+      tableName: "usuario"
     })
   }

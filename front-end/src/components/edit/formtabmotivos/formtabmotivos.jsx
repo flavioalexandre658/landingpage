@@ -28,7 +28,7 @@ const FormTabMotivos = (props) => {
             if (res.data.status) {
               toast.success(res.data.message, {
                 position: "top-right",
-                autoClose: 3000,
+                autoClose: 1300,
                 hideProgressBar: false,
                 closeOnClick: true,
                 pauseOnHover: true,
@@ -39,7 +39,7 @@ const FormTabMotivos = (props) => {
             } else {
               toast.error(res.data.message, {
                 position: "top-right",
-                autoClose: 3000,
+                autoClose: 1300,
                 hideProgressBar: false,
                 closeOnClick: true,
                 pauseOnHover: true,
@@ -52,7 +52,7 @@ const FormTabMotivos = (props) => {
         } else {
           toast.success(res.data.message, {
             position: "top-right",
-            autoClose: 3000,
+            autoClose: 1300,
             hideProgressBar: false,
             closeOnClick: true,
             pauseOnHover: true,
@@ -81,26 +81,37 @@ const FormTabMotivos = (props) => {
 
   const removeMotivo = (motivo) => {
     props.setMotivos(props.motivos.filter((item) => item.id !== motivo.id));
-    api.delete("/removerMotivo/" + motivo.id).then(function (res) {
-      if (res.data.status) {
-        toast.warning(res.data.message, {
-          position: "top-right",
-          autoClose: 3000,
-          hideProgressBar: false,
-          closeOnClick: true,
-          pauseOnHover: true,
-          draggable: true,
-          progress: undefined,
-        });
-      } else {
-        toast.error("Erro ao remover.", {
-          position: "top-right",
-          autoClose: 3000,
-          hideProgressBar: false,
-          closeOnClick: true,
-          pauseOnHover: true,
-          draggable: true,
-          progress: undefined,
+    api.get("/getMotivo/" + motivo.id).then(function (res) {
+      if (res.data.length > 0) {
+        api.delete("/removerMotivo/" + motivo.id).then(function (res) {
+          if (res.data.status) {
+            if (motivo.idImagem !== "") {
+              api.get("/getFile/" + motivo.idImagem).then(function (res) {
+                if (res.data.length > 0) {
+                  api.delete("/removerFile/" + motivo.idImagem);
+                }
+              });
+            }
+            toast.warning(res.data.message, {
+              position: "top-right",
+              autoClose: 1300,
+              hideProgressBar: false,
+              closeOnClick: true,
+              pauseOnHover: true,
+              draggable: true,
+              progress: undefined,
+            });
+          } else {
+            toast.error("Erro ao remover.", {
+              position: "top-right",
+              autoClose: 1300,
+              hideProgressBar: false,
+              closeOnClick: true,
+              pauseOnHover: true,
+              draggable: true,
+              progress: undefined,
+            });
+          }
         });
       }
     });
